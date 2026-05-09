@@ -9,6 +9,17 @@ export default defineConfig(({mode}) => {
     base: '/',
     build: {
       outDir: 'dist',
+      cssCodeSplit: true,
+      chunkSizeWarningLimit: 700,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
     },
     plugins: [react(), tailwindcss()],
     define: {
